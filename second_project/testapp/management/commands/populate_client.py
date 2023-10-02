@@ -16,6 +16,9 @@ class Command(BaseCommand):
         surnames: list[str] = []
         num: int = 0
         phone: list[str] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        countries: list[str] = ["USA, New York, New York", "USA, D.C. Washington", "USA, Ohio, Columbus",
+                                "USA, Maryland, Baltimore", "USA, Delaware, Dover", "USA, West Virginia, Charleston",
+                                "UK, London", "UK, Oxford", "UK, York", "UK, Edinburgh"]
         with open("names.txt", '+r') as source_names, \
                 open("lastnames.txt", '+r') as source_lastnames:
             names = source_names.read().splitlines()
@@ -25,11 +28,12 @@ class Command(BaseCommand):
         shuffle(surnames)
         
         for _ in range(amount):
-            num = randint(0, len(names))
+            num = randint(0, len(names) - 1)
             shuffle(phone)
             client = Client(
                 firstname=names[num], surname=surnames[num], email=f"{names[num]}@test.com",
-                phone_number=f"+{randint(1, 20)}" + ''.join(map(str, phone))
+                phone_number=f"+{randint(1, 20)}" + ''.join(map(str, phone)),
+                address=countries[randint(0, len(countries) - 1)]
             )
             client.save()
             self.stdout.write(f'{client}')

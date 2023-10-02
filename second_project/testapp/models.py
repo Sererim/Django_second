@@ -13,11 +13,13 @@ class Client(models.Model):
     email = models.EmailField(unique=True)
     phone_number = PhoneNumberField(unique=True)
     date_of_registration = models.DateTimeField(auto_now_add=True)
+    address = models.CharField(max_length=50)
     
     def __str__(self):
         return f"Client: {self.firstname} {self.surname}\n" \
                f"Email: {self.email}\nPhone number: {self.phone_number}\n" \
-               f"Date of registration is: {self.date_of_registration}"
+               f"Date of registration is: {self.date_of_registration}\n" \
+               f"Address: {self.address}"
 
 
 class Product(models.Model):
